@@ -1,0 +1,4 @@
+Sample1 0 0 0.0
+Sample2 0 0 0.0
+Sample3 0 0 0.0
+hege 1 1 1.1
