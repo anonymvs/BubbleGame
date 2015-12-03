@@ -12,6 +12,13 @@ public class Gamer {
 		this.time = time;
 	}
 	
+	public Gamer(String name) {
+		this.name = name;
+		score = 0;
+		jumps = 0;
+		time = 0;
+	}
+	
 	public void setScore(int s) {
 		score = s;
 	}

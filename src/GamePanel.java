@@ -29,6 +29,7 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 	//list of circles
 	protected List<Platform> cl = new ArrayList<Platform>();
 	//player
+	private Gamer actualGamer;
 	protected Player pl = new Player();
 	protected Platform pf = new Platform();
 	
@@ -40,6 +41,13 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 		startT = System.currentTimeMillis();
 		this.setFocusable(true);
 		this.addKeyListener(this);
+	}
+	
+	public void setGamer(Gamer gamer) {
+		actualGamer = gamer;
+	}
+	public Gamer getGamer() {
+		return actualGamer;
 	}
 	
 	//paints out the graphics
@@ -122,14 +130,12 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	@Override
 	public void run() {
-		//x += velX;
 			synchronized (cl) {
 				platformHandler();
 				
 				if(pl.getDir() == Player.Direction.JUMP) {
 					pf = pl.platformViewer(cl);
 					pl.moveAround(pf);
-					//pl.setDir(Player.Direction.RIGHT);
 				} else {
 					pl.moveAround(pf);
 				}
@@ -198,6 +204,9 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 		stopT = System.currentTimeMillis();
 		long deltaT = stopT - startT;
 		seconds = deltaT / 1000.0;
+		actualGamer.setJumps(pl.getJumps());
+		actualGamer.setScore(score);
+		actualGamer.setTime(seconds);
 		this.setVisible(false);
 	}
 	
@@ -206,16 +215,6 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 		long deltaTMP = tmp - startT;
 		double secs = deltaTMP / 1000.0;
 		return secs;
-	}
-	
-	public int getScore() {
-		return score;
-	}
-	public int getJumps() {
-		return pl.getJumps();
-	}
-	public double getTime() {
-		return seconds;
 	}
 }
 

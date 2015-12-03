@@ -11,6 +11,10 @@ public class GameWindow implements ComponentListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 6588925996997490141L;
+	
+	//actual player's object
+	private Gamer actualGamer;
+	
 	private JFrame jf = new JFrame();
 	private JFrame old = new JFrame();
 	private int frameHeight = 900;
@@ -18,18 +22,14 @@ public class GameWindow implements ComponentListener {
 	GamePanel gp = new GamePanel(frameWidth, frameHeight);
 	private JPanel jp = new JPanel(new BorderLayout());
 	
-	//player STATISTICS
-	private String name;
-	private int jumps;
-	private int score;
-	private double time;
+	
 	
 	public GameWindow() {
 		
 	}
 	
-	public GameWindow(JFrame old, String name){
-		this.name = name;
+	public GameWindow(JFrame old, Gamer gamer){
+		actualGamer = gamer;
 		JFrame frame = new JFrame("Bubble Game");
 		this.old = old;
 		jf = frame;
@@ -40,7 +40,6 @@ public class GameWindow implements ComponentListener {
 		JLabel text = new JLabel("Bubble game:");
 		text.setEnabled(true);
 		
-		
 		gp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		
@@ -48,21 +47,12 @@ public class GameWindow implements ComponentListener {
 		jp.add(gp, BorderLayout.CENTER);
 		jf.add(jp);
 		gp.addComponentListener(this);
-		
+		gp.setGamer(actualGamer);
 		//this.run();
 	}
 	
-	public int getScore() {
-		return score;
-	}
-	public int getJumps() {
-		return jumps;
-	}
-	public double getTime() {
-		return time;
-	}
-	public String getName() {
-		return name;
+	public Gamer getGamer() {
+		return actualGamer;
 	}
 
 
@@ -72,10 +62,8 @@ public class GameWindow implements ComponentListener {
 		// TODO Auto-generated method stub
 		//this.dispose();
 		//name = gp.getName();
-		jumps = gp.getJumps();
-		score = gp.getScore();
-		time = gp.getTime();
-		jf.dispose();
+		jf.setVisible(false);
+		actualGamer = gp.getGamer();
 		old.setEnabled(true);
 		old.setVisible(true);
 	}

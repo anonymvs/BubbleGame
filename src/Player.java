@@ -67,8 +67,8 @@ public class Player extends Circle{
 			if(pl != l.get(i)) {
 				if(isOrbital(l.get(i))) {
 					pl = l.get(i);
+					alpha = Math.toDegrees(Math.acos((x - pl.x) / (pl.r + r )));
 					v = Direction.RIGHT;
-					alpha = Math.toDegrees(Math.acos((x - pl.x) / (pl.r+r)));
 					jumps++;
 				}
 			}		
@@ -78,7 +78,7 @@ public class Player extends Circle{
 	
 	public boolean isOrbital(Platform p) {
 		double d = Math.sqrt((this.x-p.x)*(this.x-p.x) + (this.y-p.y)*(this.y-p.y));
-		if(d < (this.r + p.r + 2) && d > (this.r + p.r - 2)) {
+		if(d < (this.r + p.r) && d > (this.r + p.r - 1)) {
 			return true;
 		} else {
 			return false;

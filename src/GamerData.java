@@ -1,12 +1,13 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-
-
 
 public class GamerData	extends AbstractTableModel {
 
@@ -15,20 +16,24 @@ public class GamerData	extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 4056938658884208250L;
 	
-	List<Gamer> gl = new ArrayList<Gamer>();
+	private List<Gamer> gl = new ArrayList<Gamer>();
 	
 	public GamerData() {
-		
+		try {
+			readHighScore();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Collections.sort(gl, new GamerComparator());
 	}
 	
-	public List<Gamer> getData() {
+	public List<Gamer> getDataList() {
 		return gl;
 	}
-	
 	public Gamer getGamer(int index) {
 		return gl.get(index);
 	}
-	
 	public int size() {
 		return gl.size();
 	}
@@ -38,13 +43,11 @@ public class GamerData	extends AbstractTableModel {
 		// TODO Auto-generated method stub
 		return 5;
 	}
-
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
 		return 4;
 	}
-
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
@@ -76,14 +79,8 @@ public class GamerData	extends AbstractTableModel {
 	
 	public void addGamer(Gamer gamer) {
 		if(!gamerCheck(gamer)) gl.add(gamer);
-		//gl.sort(new GamerComparator());
+		Collections.sort(gl, new GamerComparator());
 		System.out.println(gamer.getName());
-		fireTableDataChanged();
-	}
-	
-	public void newGamer(String s) {
-		gl.add(0, new Gamer(s,0,0,0));
-		//gl.sort(new GamerComparator());
 		fireTableDataChanged();
 	}
 	
@@ -92,11 +89,9 @@ public class GamerData	extends AbstractTableModel {
 		for(int i = 0; i < gl.size(); i++) {
 			if(gl.get(i).getName().equals(g.getName())) {
 				b = true;
-				if(gl.get(i).getScore() < g.getScore()) {
-					gl.get(i).setScore(g.getScore());
-					gl.get(i).setJumps(g.getJumps());
-					gl.get(i).setTime(g.getTime());
-				}
+				gl.get(i).setJumps(g.getJumps());
+				gl.get(i).setScore(g.getScore());
+				gl.get(i).setTime(g.getTime());
 			}
 		}
 		return b;
@@ -105,7 +100,7 @@ public class GamerData	extends AbstractTableModel {
 	public void saveList() throws IOException {
 		FileWriter fw = new FileWriter("highscore.txt");
 		PrintWriter pw = new PrintWriter(fw);
-		for(int i = 1; i < gl.size(); i++) {
+		for(int i = 0; i < gl.size(); i++) {
 				pw.println(gl.get(i).getName() + " " +
 						   gl.get(i).getJumps() + " " + 
 						   gl.get(i).getScore() + " " +
@@ -116,4 +111,23 @@ public class GamerData	extends AbstractTableModel {
 		System.out.println("kimentve");
 		pw.close();
 	}
+	
+	//Reads in the data from highscore.txt
+	private void readHighScore() throws IOException {
+		FileReader fr = new FileReader("highscore.txt");
+		BufferedReader br = new BufferedReader(fr);
+		while(true) {
+			String line = br.readLine();
+			if(line == null) break;
+			Gamer newG = lineToGamer(line);
+			gl.add(newG);
+		}
+		br.close();
+	}
+	//Splits the lines from the bufferedReader
+	private Gamer lineToGamer(String line) {
+		String[] sl = line.split(" ");
+		Gamer tmp = new Gamer(sl[0], Integer.parseInt(sl[1]), Integer.parseInt(sl[2]), Double.parseDouble(sl[3]));
+		return tmp;
+	}	
 }

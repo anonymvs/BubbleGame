@@ -1,4 +1,3 @@
-Sample1 0 0 0.0
-Sample2 0 0 0.0
-Sample3 0 0 0.0
-hege 1 1 1.1
+Hege 16 5504 39.737
+Julcsi 8 2980 21.988
+hege 2 630 4.959
