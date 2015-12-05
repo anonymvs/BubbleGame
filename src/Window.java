@@ -109,7 +109,7 @@ public class Window extends JFrame {
 			
 			switch (e.getActionCommand()) {
 			case "start" : {
-				System.out.println("start"); 
+				//System.out.println("start"); 
 				jf.setVisible(false);
 				if(!named) {
 					System.out.println("unknown");
@@ -148,7 +148,7 @@ public class Window extends JFrame {
 				break;
 			}
 			case "confirm" : {
-				System.out.println("confirm"); 
+				//System.out.println("confirm"); 
 				actualGamer.setName(name.getText());
 				name.setEnabled(false);
 				start.setEnabled(true);

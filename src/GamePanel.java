@@ -156,19 +156,19 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			pl.setDir(Player.Direction.JUMP);
-			System.out.println("ugrik");
+			//System.out.println("ugrik");
 		}
 		if(pl.getDir() != Player.Direction.JUMP) {
 			if(e.getKeyCode() == 39) {
 				pl.setDir(Player.Direction.LEFT);
-				System.out.println("bal");
+				//System.out.println("bal");
 			}
 			if(e.getKeyCode() == 37) {
 				pl.setDir(Player.Direction.RIGHT);
-				System.out.println("jobb");
+				//System.out.println("jobb");
 			}
 		}
-		System.out.println("megnyomtam");
+		//System.out.println("megnyomtam");
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Player extends Circle{
 	private Platform pl = new Platform();
+	// in degree
 	private double alpha;
 	private double velP = 1;
 	private double velFall = 0.02;
@@ -67,7 +68,13 @@ public class Player extends Circle{
 			if(pl != l.get(i)) {
 				if(isOrbital(l.get(i))) {
 					pl = l.get(i);
-					alpha = Math.toDegrees(Math.acos((x - pl.x) / (pl.r + r )));
+					if((Math.abs((x - pl.x) / (pl.r + r))) > 1) {
+						if(((x - pl.x) / (pl.r + r)) < -1) alpha = Math.toDegrees(Math.acos(-1));
+						if(((x - pl.x) / (pl.r + r)) < 1) alpha = Math.toDegrees(Math.acos(1));
+					} else {
+						alpha = Math.toDegrees(Math.acos((x - pl.x) / (pl.r + r )));
+					}
+					System.out.println("alpha: " + alpha);
 					v = Direction.RIGHT;
 					jumps++;
 				}
@@ -78,7 +85,7 @@ public class Player extends Circle{
 	
 	public boolean isOrbital(Platform p) {
 		double d = Math.sqrt((this.x-p.x)*(this.x-p.x) + (this.y-p.y)*(this.y-p.y));
-		if(d < (this.r + p.r) && d > (this.r + p.r - 1)) {
+		if(d < (this.r + p.r + 1) && d > (this.r + p.r - 1)) {
 			return true;
 		} else {
 			return false;
