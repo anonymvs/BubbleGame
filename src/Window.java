@@ -2,8 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Collections;
+
 
 import javax.swing.*;
 
@@ -32,13 +31,13 @@ public class Window extends JFrame {
 		jf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		jf.setSize(width, height);
 		
+		gd.importFile();
+		gd.sort();
+		
 		initMenu_1();	
 	}
     
 	public void initMenu_1(){
-		
-		gd.importFile("highscore.dat");
-		gd.sort();
 		
 		ActionListener mi_1 = new MyListener();
 		start.addActionListener(mi_1);
@@ -132,20 +131,7 @@ public class Window extends JFrame {
 					actualGamer = gw.getGamer();
 					//System.out.println(actualGamer);
 					gd.addGamer(actualGamer);
-					
-					try {
-						gd.saveList();
-						gd.exportFile("highscore.dat");
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					for(int i = 0; i < gd.size(); i++) {	
-						System.out.print(gd.getGamer(i).getName());
-						System.out.print(gd.getGamer(i).getScore());
-						System.out.print(gd.getGamer(i).getJumps());
-						System.out.print(gd.getGamer(i).getTime());
-					}
+					gd.exportFile();
 					System.exit(0);
 				} else {
 					System.exit(0);

@@ -1,5 +1,10 @@
+import java.io.Serializable;
 
-public class Gamer {
+public class Gamer implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7549041561246543269L;
 	private String name;
 	private int score;
 	private int jumps;

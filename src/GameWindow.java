@@ -7,22 +7,14 @@ import javax.swing.*;
 
 
 public class GameWindow implements ComponentListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6588925996997490141L;
-	
 	//actual player's object
 	private Gamer actualGamer;
-	
 	private JFrame jf = new JFrame();
 	private JFrame old = new JFrame();
 	private int frameHeight = 900;
 	private int frameWidth = 500;
 	GamePanel gp = new GamePanel(frameWidth, frameHeight);
 	private JPanel jp = new JPanel(new BorderLayout());
-	
-	
 	
 	public GameWindow() {
 		
@@ -41,7 +33,6 @@ public class GameWindow implements ComponentListener {
 		text.setEnabled(true);
 		
 		gp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
 		
 		jp.add(text, BorderLayout.PAGE_START);
 		jp.add(gp, BorderLayout.CENTER);

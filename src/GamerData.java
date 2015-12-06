@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,43 +22,31 @@ public class GamerData	extends AbstractTableModel implements Serializable {
 	private List<Gamer> gl = new ArrayList<Gamer>();
 	
 	public GamerData() {
-		/*
-		try {
-			readHighScore();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		importFile("highscore.dat");
-		Collections.sort(gl, new GamerComparator());
-		*/
+				
 	}
 	
-	public boolean importFile(String fileName) {
+	public void importFile() {
 		ObjectInputStream in;
 		
 		try {
-			in = new ObjectInputStream(new FileInputStream(fileName));
+			in = new ObjectInputStream(new FileInputStream("highscore.dat"));
 			GamerData tmp = (GamerData) in.readObject();
 			this.gl = tmp.getDataList();
-			//for(int i = 0; i < gl.size(); i++) System.out.println(gl.get(i));
 			in.close();
-			return true;
 		} catch (Exception e) {
-			return false;
+			System.out.println(e.getMessage());
 		}
 	}
 	
-	public boolean exportFile(String fileName) {
+	public void exportFile() {
 		ObjectOutputStream out;
 		
 		try{
-			out = new ObjectOutputStream(new FileOutputStream(fileName));
+			out = new ObjectOutputStream(new FileOutputStream("highscore.dat"));
 			out.writeObject(this);
 			out.close();
-			return true;
 		} catch(Exception e) {
-			return false;
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -147,9 +133,9 @@ public class GamerData	extends AbstractTableModel implements Serializable {
 		System.out.println("kimentve");
 		pw.close();
 	}
-	
+	/*
 	//Reads in the data from highscore.txt
-	private void readHighScore() throws IOException {
+	public void readHighScore() throws IOException {
 		FileReader fr = new FileReader("highscore.txt");
 		BufferedReader br = new BufferedReader(fr);
 		while(true) {
@@ -166,7 +152,8 @@ public class GamerData	extends AbstractTableModel implements Serializable {
 		Gamer tmp = new Gamer(sl[0], Integer.parseInt(sl[1]), Integer.parseInt(sl[2]), Double.parseDouble(sl[3]));
 		return tmp;
 	}
-
+	*/
+	
 	public void sort() {
 		// TODO Auto-generated method stub
 		Collections.sort(gl, new GamerComparator());

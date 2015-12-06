@@ -7,10 +7,8 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
 
 import javax.swing.JPanel;
-
 
 class GamePanel extends JPanel implements Runnable, KeyListener {
 	
