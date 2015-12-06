@@ -69,13 +69,14 @@ public class Player extends Circle{
 				if(isOrbital(l.get(i))) {
 					pl = l.get(i);
 					if((Math.abs((x - pl.x) / (pl.r + r))) > 1) {
-						if(((x - pl.x) / (pl.r + r)) < -1) alpha = Math.toDegrees(Math.acos(-1));
-						if(((x - pl.x) / (pl.r + r)) < 1) alpha = Math.toDegrees(Math.acos(1));
+						if(((x - pl.x) / (pl.r + r)) < -1) alpha = Math.toDegrees(Math.acos(1));
+						if(((x - pl.x) / (pl.r + r)) < 1) alpha = Math.toDegrees(Math.acos(-1));
 					} else {
 						alpha = Math.toDegrees(Math.acos((x - pl.x) / (pl.r + r )));
 					}
-					System.out.println("alpha: " + alpha);
-					v = Direction.RIGHT;
+					if(alpha <= 90) v = Direction.RIGHT;
+					else v = Direction.LEFT;
+					System.out.println(alpha);
 					jumps++;
 				}
 			}		
@@ -85,7 +86,7 @@ public class Player extends Circle{
 	
 	public boolean isOrbital(Platform p) {
 		double d = Math.sqrt((this.x-p.x)*(this.x-p.x) + (this.y-p.y)*(this.y-p.y));
-		if(d < (this.r + p.r + 1) && d > (this.r + p.r - 1)) {
+		if(d < (this.r + p.r + 3) && d > (this.r + p.r - 3)) {
 			return true;
 		} else {
 			return false;
@@ -108,13 +109,7 @@ public class Player extends Circle{
 			x += velFall * vector[0];
 			y += velFall * vector[1];
 			break;
-		}
-		default: {
-			v = Direction.RIGHT;
-			alpha+= velP;
-			positionUpdate(p);
-			break;
-		}	 
+		} 
 		}
 	}
 	
