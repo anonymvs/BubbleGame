@@ -1,15 +1,20 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class GamerData	extends AbstractTableModel {
+public class GamerData	extends AbstractTableModel implements Serializable {
 
 	/**
 	 * 
@@ -19,13 +24,44 @@ public class GamerData	extends AbstractTableModel {
 	private List<Gamer> gl = new ArrayList<Gamer>();
 	
 	public GamerData() {
+		/*
 		try {
 			readHighScore();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+		importFile("highscore.dat");
 		Collections.sort(gl, new GamerComparator());
+		*/
+	}
+	
+	public boolean importFile(String fileName) {
+		ObjectInputStream in;
+		
+		try {
+			in = new ObjectInputStream(new FileInputStream(fileName));
+			GamerData tmp = (GamerData) in.readObject();
+			this.gl = tmp.getDataList();
+			//for(int i = 0; i < gl.size(); i++) System.out.println(gl.get(i));
+			in.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean exportFile(String fileName) {
+		ObjectOutputStream out;
+		
+		try{
+			out = new ObjectOutputStream(new FileOutputStream(fileName));
+			out.writeObject(this);
+			out.close();
+			return true;
+		} catch(Exception e) {
+			return false;
+		}
 	}
 	
 	public List<Gamer> getDataList() {
@@ -129,5 +165,10 @@ public class GamerData	extends AbstractTableModel {
 		String[] sl = line.split(" ");
 		Gamer tmp = new Gamer(sl[0], Integer.parseInt(sl[1]), Integer.parseInt(sl[2]), Double.parseDouble(sl[3]));
 		return tmp;
+	}
+
+	public void sort() {
+		// TODO Auto-generated method stub
+		Collections.sort(gl, new GamerComparator());
 	}	
 }

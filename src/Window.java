@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Collections;
 
 import javax.swing.*;
 
@@ -35,6 +36,9 @@ public class Window extends JFrame {
 	}
     
 	public void initMenu_1(){
+		
+		gd.importFile("highscore.dat");
+		gd.sort();
 		
 		ActionListener mi_1 = new MyListener();
 		start.addActionListener(mi_1);
@@ -131,6 +135,7 @@ public class Window extends JFrame {
 					
 					try {
 						gd.saveList();
+						gd.exportFile("highscore.dat");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
