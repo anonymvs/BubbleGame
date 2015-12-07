@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Platform extends Circle{

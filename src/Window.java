@@ -1,13 +1,12 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 import javax.swing.*;
 
-@SuppressWarnings("serial")
-public class Window extends JFrame {
+public class Window {
 	
 	//class attributes
     private GamerData gd = new GamerData();
@@ -15,11 +14,9 @@ public class Window extends JFrame {
     protected boolean played = false;
 	//frame attributes
 	private JFrame jf = new JFrame();
-	private JPanel mainPanel = new JPanel();
-	private JTextField name = new JTextField();
-    private JButton jb = new JButton("Confirm");
-    private JButton start = new JButton("Start");
-    private JTable jt = new JTable(gd);
+		private JTextField name = new JTextField();
+		private JButton jb = new JButton("Confirm");
+		private JButton start = new JButton("Start");
     //new frame
     private GameWindow gw = new GameWindow();
     private Gamer actualGamer = new Gamer("Unknown");
@@ -28,7 +25,7 @@ public class Window extends JFrame {
     public Window(int width, int height){
 		JFrame frame = new JFrame("Title");
 		jf = frame;
-		jf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jf.setSize(width, height);
 		
 		gd.importFile();
@@ -38,6 +35,8 @@ public class Window extends JFrame {
 	}
     
 	public void initMenu_1(){
+		JPanel mainPanel = new JPanel();
+		JTable jt = new JTable(gd);
 		
 		ActionListener mi_1 = new MyListener();
 		start.addActionListener(mi_1);

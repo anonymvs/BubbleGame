@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,7 +23,7 @@ class GamePanel extends JPanel implements Runnable, KeyListener {
 	protected long stopT = 0;
 	protected double seconds = 0;
 	//private Timer t = new Timer(10, this);
-	double velX = 0.1; double velY = 0.9;
+	double velY = 0.9;
 	private int panelHeight;
 	//list of circles
 	protected List<Platform> cl = new ArrayList<Platform>();
